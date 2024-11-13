@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiFAT Downloader</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/scripts.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RiFAT Downloader</h1>
+            <p>Download videos from various platforms in your preferred format</p>
+        </header>
+        <main>
+            <form id="preview-form" action="/preview" method="post">
+                <label for="url">Enter Video URL:</label>
+                <input type="text" id="url" name="url" required placeholder="https://tiktok.com/video">
+                <button type="submit">Preview Video</button>
+            </form>
+
+            <div id="preview-section">
+                {% if video_url %}
+                <div class="video-preview">
+                    <h2>{{ title }}</h2>
+                    <video controls>
+                        <source src="{{ video_url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <form action="/download" method="post" class="download-form">
+                        <input type="hidden" name="url" value="{{ url }}">
+                        <div class="format-selection">
+                            <label>Select format:</label>
+                            <select name="format">
+                                <option value="mp4">MP4</option>
+                                <option value="mp3">MP3</option>
+                            </select>
+                        </div>
+                        <button type="submit">Download</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 RiFAT Downloader. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
